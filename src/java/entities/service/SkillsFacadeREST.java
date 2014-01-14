@@ -74,7 +74,7 @@ public class SkillsFacadeREST extends AbstractFacade<Skills> {
     public List<Skills> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
-
+    
     @GET
     @Path("count")
     @Produces("text/plain")
