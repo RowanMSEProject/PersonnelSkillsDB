@@ -74,7 +74,15 @@ public class LoginFacadeREST extends AbstractFacade<Login> {
     public List<Login> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
-
+    
+    @GET
+    @Path("/gt/{skill}/{exp}")
+    @Produces({"application/xml", "application/json"})
+    public List<Login> findUserSkill(@PathParam("skill") String skill, @PathParam("exp") Integer exp) {
+        return em.createQuery("SELECT l FROM Login l, Skills s, Skillsforusers sfu WHERE l.userid = sfu.login.userid " +
+            "and s.skillsid = sfu.skills.skillsid and s.description = '" + skill + "' and sfu.skilllevel > " +exp).getResultList();
+    }
+    
     @GET
     @Path("count")
     @Produces("text/plain")

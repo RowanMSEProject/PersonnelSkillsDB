@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Find Users with Skills</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <h2>Find Users with Specific Skills and Years Experience</h2>
+
+        <form action="SkillFormResults.html" method="get">
+            <select name="skill">
+                <option value="HVAC">HVAC</option>
+                <option value="Chilled Water">Chilled Water</option>
+                <option value="Propulsion">Propulsion</option>
+                <option value="Electric Generation">Electric Generation</option>
+                <option value="Electrician">Electrician</option>
+                <option value="IT Technician">IT Technician</option>
+            </select>
+            Skill Level: <input type="number" name="skillLevel" min="0" max="10" value="0">
+            <input type="submit" value="Search">
+        </form> 
+    </body>
+</html>
