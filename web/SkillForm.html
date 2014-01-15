@@ -9,11 +9,46 @@ and open the template in the editor.
         <title>Find Users with Skills</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+        <script>
+            function getParam(name)
+            {
+                name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                var regexS = "[\\?&]" + name + "=([^&#]*)";
+                var regex = new RegExp(regexS);
+                var results = regex.exec(window.location.href);
+                if (results == null)
+                    return "";
+                else
+                    return results[1];
+            }
+            function getSkill()
+            {
+                return getParam("skill");
+            }
+            function getSkillLevel()
+            {
+                return getParam("skillLevel");
+            }
+            function getUrlData()
+            {
+                var skill = getParam("skill");
+                if(skill === "") {
+                    skill = "HVAC"; 
+                }
+                var skillLevel = getParam("skillLevel");
+                console.log(skillLevel);
+                if(skillLevel === "") {
+                    skillLevel = 0;
+                }
+                var address = "http://localhost:8080/PersonnelSkillsDB/webresources/entities.login/gt/" + skill + "/" + skillLevel + "";
+                window.open(address, '_self');
+            }
+        </script>
     </head>
     <body>
         <h2>Find Users with Specific Skills and Years Experience</h2>
 
-        <form action="SkillFormResults.html" method="get">
+        <form method="get">
             <select name="skill">
                 <option value="HVAC">HVAC</option>
                 <option value="Chilled Water">Chilled Water</option>
@@ -23,7 +58,7 @@ and open the template in the editor.
                 <option value="IT Technician">IT Technician</option>
             </select>
             Skill Level: <input type="number" name="skillLevel" min="0" max="10" value="0">
-            <input type="submit" value="Search">
+            <input type="button" value="Search" onclick="getUrlData()">
         </form> 
     </body>
 </html>

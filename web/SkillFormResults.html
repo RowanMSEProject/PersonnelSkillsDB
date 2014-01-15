@@ -19,18 +19,39 @@ and open the template in the editor.
                 else
                     return results[1];
             }
+            function getSkill()
+            {
+                return getParam("skill");
+            }
+            function getSkillLevel()
+            {
+                return getParam("skillLevel");
+            }
             function getUrlData()
             {
                 var skill = getParam("skill");
+                if(skill === "") {
+                    skill = "HVAC"; 
+                }
                 var skillLevel = getParam("skillLevel");
                 console.log(skillLevel);
                 if(skillLevel === "") {
                     skillLevel = 0;
                 }
-                window.open("http://localhost:8080/PersonnelSkillsDB/webresources/entities.login/gt/" + skill + "/" + skillLevel,"_parent");
+                var address = "http://localhost:8080/PersonnelSkillsDB/webresources/entities.login/gt/" + skill + "/" + skillLevel + "";
+                return address;
+            }
+            function goBack()
+            {
+                window.history.back();
             }
         </script>
     </head>
-    <body onload="getUrlData()">
+    <body> 
+       <h1> Personnel with Skill <script> document.write(getSkill().replace("+"," ")); </script> and Skill Level above <script> document.write(getSkillLevel()); </script> </h1>
+            <script>
+                window.open(getUrlData(), _top);
+            </script>
+          <button onclick="goBack()">Go Back</button>
     </body>
 </html>
