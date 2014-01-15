@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -39,6 +40,18 @@ public class LoginFacadeREST extends AbstractFacade<Login> {
     @Consumes({"application/xml", "application/json"})
     public void create(Login entity) {
         super.create(entity);
+    }
+    
+    @POST
+    @Path("/create")
+    @Consumes({"application/x-www-form-urlencoded", "application/xml", "application/json"})
+    public void createUser(@FormParam("username") String username,
+                           @FormParam("password") String password) {
+        int id =em.createNamedQuery("Login.findAll").getResultList().size();
+        id++;
+        Login newUser = new Login(Integer.toString(id), username, password);
+        super.create(newUser);
+        findAll();
     }
 
     @PUT
