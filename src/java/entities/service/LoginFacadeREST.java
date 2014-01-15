@@ -51,7 +51,6 @@ public class LoginFacadeREST extends AbstractFacade<Login> {
         id++;
         Login newUser = new Login(Integer.toString(id), username, password);
         super.create(newUser);
-        findAll();
     }
 
     @PUT
