@@ -56,7 +56,7 @@ public class LoginFacadeREST extends AbstractFacade<Login> {
             Login newUser = new Login(Integer.toString(id), username, password);
             super.create(newUser);
         } else {
-            throw new WebApplicationException(Response.status(400).entity("Password must contain capital letter and number").build());
+            throw new WebApplicationException(Response.status(400).entity("Password must contain capital letter and number and be 8 characters long").build());
         }
     }
 
@@ -132,7 +132,7 @@ public class LoginFacadeREST extends AbstractFacade<Login> {
         TypedQuery<Object[]> query = em.createQuery("SELECT l.username, sfu.skilllevel FROM Login l, Skills s, Skillsforusers sfu WHERE l.userid = sfu.login.userid " +
             "and s.skillsid = sfu.skills.skillsid and s.description = '" + skill + "' and sfu.skilllevel > " +exp + "", Object[].class);
         List<Object[]> results = query.getResultList();
-        String answer = "<h2> Personnel with Skill " + skill + "<br><br><table border='1'> <tr>";
+        String answer = "<h2> Personnel with Skill " + skill.replace("+", " ") + "<br><br><table border='1'> <tr>";
         answer = answer + "<th>USERNAME</th>" + " <th> SKILL LEVEL </th></tr>";
         for(Object[] result : results) {
             answer = answer + "<tr>";
@@ -159,7 +159,13 @@ public class LoginFacadeREST extends AbstractFacade<Login> {
         boolean hasUppercase = !password.equals(password.toLowerCase());
         boolean hasLowercase = !password.equals(password.toUpperCase());
         boolean isAtLeast8   = password.length() >= 8;//Checks for at least 8 characters
-        boolean hasSpecial   = password.matches("[A-Za-z0-9 ]*");//Checks at least one char is not alpha numeric
-        return hasUppercase && hasLowercase && isAtLeast8 && hasSpecial;
+        boolean hasDigit   = false;
+        for(int i = 0; i < password.length(); i++) {
+            if(Character.isDigit(password.charAt(i))) {
+                hasDigit = true;
+                break;
+            }
+        }
+    return hasUppercase && hasLowercase && isAtLeast8 && hasDigit;
     }
 }

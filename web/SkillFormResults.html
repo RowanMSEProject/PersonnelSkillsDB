@@ -39,7 +39,7 @@ and open the template in the editor.
                     skillLevel = 0;
                 }
                 var address = "http://localhost:8080/PersonnelSkillsDB/webresources/entities.login/gt/" + skill + "/" + skillLevel + "";
-                return address;
+                window.open(address, '_self');
             }
             function goBack()
             {
@@ -47,11 +47,6 @@ and open the template in the editor.
             }
         </script>
     </head>
-    <body> 
-       <h1> Personnel with Skill <script> document.write(getSkill().replace("+"," ")); </script> and Skill Level above <script> document.write(getSkillLevel()); </script> </h1>
-            <script>
-                window.open(getUrlData(), _top);
-            </script>
-          <button onclick="goBack()">Go Back</button>
+    <body onload="getUrlData()">
     </body>
 </html>
