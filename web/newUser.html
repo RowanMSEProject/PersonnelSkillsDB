@@ -9,14 +9,55 @@ and open the template in the editor.
         <title>Create a new user</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
+        <style>
+            table.spacing {
+                border-spacing:100px 100px;
+            }
+        </style>
+        <script src="errorMessage.js"></script>
     </head>
     <body>
-        <h2>Create User</h2>
-
-        <form action="http://localhost:8080/PersonnelSkillsDB/webresources/entities.login/create" method="post">
-            Username: <input type="text" name="username"> <br>
-            Password: <input type="password" name="password"> <br>
-            <input type="submit" value="Create">
-        </form> 
+      <table class="spacing">
+        <tr>
+          <td>
+            <h2>Create User</h2>
+            <form action="http://localhost:8080/PersonnelSkillsDB/webresources/entities.login/create" method="post">
+              Username: <input type="text" name="username"> <br>
+              Password: <input type="password" name="password"> <br>
+              <input type="submit" value="Create" onsubmit="setTimeout(function () { window.location.reload(); }, 5)">
+            </form> 
+          </td>
+          <td>
+              <FORM>
+                <INPUT TYPE="button" onClick="history.go(0)" VALUE="Refresh">
+              </FORM>
+              <div id="logins">
+                  <script>
+                  loadXMLDoc('http://localhost:8080/PersonnelSkillsDB/webresources/entities.login');
+                 </script>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h2>Update User Password</h2>
+            <form action="http://localhost:8080/PersonnelSkillsDB/webresources/entities.login/updatePswd" method="post">
+              User ID: <input type="text" name="username"> <br>
+              Old Password: <input type="password" name="oldPassword"> <br>
+              New Password: <input type="password" name="newPassword"><br>
+              <input type="submit" value="Update">
+            </form>
+          </td>   
+        </tr>
+        <tr>
+          <td>
+              <h2> Delete User </h2>
+              <form action="http://localhost:8080/PersonnelSkillsDB/webresources/entities.login/rm" method="post">
+              User Id: <input type="text" name="userid"> <br>
+              <input type="submit" value="Delete">
+              </form> 
+          </td>
+        </tr>
+      </table>
     </body>
 </html>
