@@ -51,7 +51,8 @@ public class LoginFacadeREST extends AbstractFacade<Login> {
     public void createUser(@FormParam("username") String username,
                            @FormParam("password") String password) {
         if(checkPassword(password)) {
-            int id =em.createNamedQuery("Login.findAll").getResultList().size();
+            List<Login> users=em.createNamedQuery("Login.findAll").getResultList();
+            int id = Integer.parseInt(users.get(users.size()-1).getUserid());
             id++;
             Login newUser = new Login(Integer.toString(id), username, password);
             super.create(newUser);
